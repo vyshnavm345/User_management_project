@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework',
-    'users',
+    "rest_framework",
+    "users",
     "corsheaders",
 ]
 
@@ -124,9 +124,9 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -134,16 +134,14 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     )
 }
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30)
-}
+SIMPLE_JWT = {"ACCESS_TOKEN_LIFETIME": timedelta(minutes=30)}
 
 
 AUTH_USER_MODEL = "users.UserAccount"
 
-CORS_ALLOW_ALL_ORIGINS= True
+CORS_ALLOW_ALL_ORIGINS = True

@@ -32,16 +32,14 @@ class RetriveUserView(APIView):
         return Response(user.data, status=status.HTTP_200_OK)
 
 
-
-@api_view(['GET'])
+@api_view(["GET"])
 def RetriveUserListView(request):
-
-    search_term = request.GET.get('search', '')
+    search_term = request.GET.get("search", "")
     if search_term:
         users = UserAccount.objects.filter(
-            Q(first_name__icontains=search_term) |
-            Q(last_name__icontains=search_term) |
-            Q(email__icontains=search_term)
+            Q(first_name__icontains=search_term)
+            | Q(last_name__icontains=search_term)
+            | Q(email__icontains=search_term)
         )
     else:
         users = UserAccount.objects.all()
@@ -49,11 +47,12 @@ def RetriveUserListView(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
-@api_view(['PUT'])
+
+@api_view(["PUT"])
 def edit_user(request):
     # print("Request : ", request)
     data = request.data
-    user_id = data.get('id')
+    user_id = data.get("id")
     user = UserAccount.objects.get(id=user_id)
     # print("user : ",user)
 
@@ -61,17 +60,19 @@ def edit_user(request):
 
     if serializer.is_valid():
         serializer.save()
-        return Response({'message':'Update successfull'}, status=status.HTTP_200_OK)
+        return Response({"message": "Update successfull"}, status=status.HTTP_200_OK)
 
     else:
         # print(serializer.errors)
-        return Response({'message':'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"message": "Invalid Credentials"}, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 def delete_user(request):
     data = request.data
-    user_id = data.get('id')
+    user_id = data.get("id")
 
     # print("request.data : ", data)
 
@@ -80,8 +81,8 @@ def delete_user(request):
         # print("User: ", user)
         deleted_user_id = user.id  # Get the ID before deletion
         user.delete()
-        return Response({'deleted_user_id': deleted_user_id}, status=status.HTTP_200_OK)
+        return Response({"deleted_user_id": deleted_user_id}, status=status.HTTP_200_OK)
     except UserAccount.DoesNotExist:
-        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

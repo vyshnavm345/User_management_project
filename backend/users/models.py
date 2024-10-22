@@ -1,5 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import (
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+)
 
 
 class UserAccoountManager(BaseUserManager):
@@ -11,10 +15,9 @@ class UserAccoountManager(BaseUserManager):
         email = email.lower()
 
         user = self.model(
-            first_name =first_name,
+            first_name=first_name,
             last_name=last_name,
             email=email,
-
         )
 
         user.set_password(password)
@@ -36,18 +39,21 @@ class UserAccoountManager(BaseUserManager):
 
         return user
 
+
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True, max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    profile_picture = models.ImageField(upload_to='profile/images', null=True, blank=True)
+    profile_picture = models.ImageField(
+        upload_to="profile/images", null=True, blank=True
+    )
 
     objects = UserAccoountManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", 'last_name']
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def __str__(self) -> str:
         return self.email
