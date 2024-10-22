@@ -10,29 +10,29 @@ from django.shortcuts import get_object_or_404
 class RegisterView(APIView):
     def post(self, request):
         data = request.data
-        print("data: ", data)
-        
+        # print("data: ", data)
+
         serializer = UserCreateSerializer(data=data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
         user = serializer.create(serializer.validated_data)
         user = UserSerializer(user)
-        
+
         return Response(user.data, status=status.HTTP_201_CREATED)
 
 
 class RetriveUserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-    
+
     def get(self, request):
         user = request.user
         user = UserSerializer(user)
-        
+
         return Response(user.data, status=status.HTTP_200_OK)
 
 
-    
+
 @api_view(['GET'])
 def RetriveUserListView(request):
 
@@ -51,33 +51,33 @@ def RetriveUserListView(request):
 
 @api_view(['PUT'])
 def edit_user(request):
-    print("Request : ", request)
+    # print("Request : ", request)
     data = request.data
     user_id = data.get('id')
     user = UserAccount.objects.get(id=user_id)
-    print("user : ",user)
-    
+    # print("user : ",user)
+
     serializer = UserSerializer(user, data=data, partial=True)
-    
+
     if serializer.is_valid():
         serializer.save()
-        return Response({'message':'Update successfull'}, status=status.HTTP_200_OK) 
+        return Response({'message':'Update successfull'}, status=status.HTTP_200_OK)
 
     else:
-        print(serializer.errors)
-        return Response({'message':'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST) 
+        # print(serializer.errors)
+        return Response({'message':'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
-    
+
 @api_view(['POST'])
 def delete_user(request):
     data = request.data
     user_id = data.get('id')
-    
-    print("request.data : ", data)
-    
+
+    # print("request.data : ", data)
+
     try:
         user = get_object_or_404(UserAccount, id=user_id)
-        print("User: ", user)
+        # print("User: ", user)
         deleted_user_id = user.id  # Get the ID before deletion
         user.delete()
         return Response({'deleted_user_id': deleted_user_id}, status=status.HTTP_200_OK)
