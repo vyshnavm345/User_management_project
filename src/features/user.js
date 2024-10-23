@@ -73,7 +73,7 @@ export const getUsers = createAsyncThunk(
 				},
 			}
 			);
-	
+
 			return response.data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error.response.data);
@@ -153,7 +153,7 @@ export const checkAuth = createAsyncThunk(
 		const access =  Cookies.get('accessToken')
 		const body = JSON.stringify({
 			token: access,
-			
+
 		});
 
 		try {
@@ -190,7 +190,7 @@ export const logout = createAsyncThunk(
     'users/logout',
     async (_, thunkAPI) => {
         try {
-            
+
             Cookies.remove('accessToken');
             Cookies.remove('refreshToken');
 

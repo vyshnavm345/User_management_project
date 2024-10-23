@@ -21,7 +21,7 @@ const RegisterPage =() => {
 
     const onChange = e=>{
       setFormData({...formData, [e.target.name]: e.target.value});
-    } 
+    }
 
     const onSubmit = e =>{
       e.preventDefault();
@@ -78,10 +78,10 @@ const RegisterPage =() => {
           ): (
             <button className="btn btn-primary mt-4">Register</button>
           )}
-          
+
         </form>
       </Layout>
     )
   }
-  
+
   export default RegisterPage

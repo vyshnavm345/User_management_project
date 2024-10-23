@@ -8,13 +8,13 @@ const LoginPage =() => {
   const dispatch = useDispatch();
 
   const {loading, isAuthenticated, registered} = useSelector(state=> state.user)
-  
-  
+
+
   const [formData, setFormData] = useState({
     email:'',
     password:''
   })
-  
+
   useEffect(()=>{
     if(registered) dispatch(resetRegistered());
   }, [registered]);
@@ -23,7 +23,7 @@ const LoginPage =() => {
 
   const onChange = e=>{
     setFormData({...formData, [e.target.name]: e.target.value});
-  } 
+  }
 
   const onSubmit = e =>{
     e.preventDefault();
@@ -52,10 +52,10 @@ const LoginPage =() => {
           ): (
             <button className="btn btn-primary mt-4">Login</button>
           )}
-          
+
         </form>
       </Layout>
     )
   }
-  
+
   export default LoginPage

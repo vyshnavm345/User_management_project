@@ -14,7 +14,7 @@ const Layout = ({title, content, children}) =>{
     </div>
     </>
     )
-    
+
 }
 
 export default Layout
