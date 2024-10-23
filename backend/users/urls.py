@@ -1,8 +1,9 @@
 from django.urls import path
+
 from .views import (
     RegisterView,
-    RetriveUserView,
     RetriveUserListView,
+    RetriveUserView,
     delete_user,
     edit_user,
 )
